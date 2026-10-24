@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+*.tfplan
+data/processed/*
+!data/processed/.gitkeep
+reports/monthly/*
+!reports/monthly/.gitkeep
