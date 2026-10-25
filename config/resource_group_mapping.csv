@@ -1,0 +1,6 @@
+resource_group,project,environment,team,cost_center,allocation_basis
+MC_PET-CLINIC-AKS-RG_PET-CLINIC-AKS_CENTRALUS,pet-clinic-aks,unknown,unallocated,unknown,verified_cluster_resource_group_name
+MC_RG-AZUREFORGE-DEV_AKS-AZUREFORGE-DEV_CENTRALUS,azureforge-idp,dev,unallocated,unknown,azure_resource_group_tags
+pet-clinic-aks-rg,pet-clinic-aks,unknown,unallocated,unknown,verified_resource_group_name
+rg-azureforge-dev,azureforge-idp,dev,unallocated,unknown,azure_resource_group_tags
+rg-azureforge-state,unallocated,unknown,unallocated,unknown,ownership_unverified

@@ -11,3 +11,26 @@ data/processed/*
 !data/processed/.gitkeep
 reports/monthly/*
 !reports/monthly/.gitkeep
+
+# Actual Azure billing data - never commit
+data/raw/
+data/exports/
+*.csv.gz
+
+# Local credentials and secrets
+.env.*
+!.env.example
+*.pem
+*.key
+*.secret
+
+# Local inspection and temporary outputs
+.azure/
+
+# Terraform local plans and environment-specific state
+**/tfplan
+**/terraform.tfplan
+**/terraform.tfstate
+**/terraform.tfstate.*
+**/terraform.tfvars
+!**/terraform.tfvars.example

@@ -1,0 +1,6 @@
+subscription_id = "YOUR-SUBSCRIPTION-ID"
+location        = "centralus"
+project_name    = "azure-finops"
+environment     = "dev"
+owner           = "platform-team"
+cost_center     = "CC-1001"

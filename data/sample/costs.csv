@@ -1,0 +1,7 @@
+date,project,environment,team,service,cost,source
+2026-10-01,finops-platform,dev,platform-engineering,compute,18.00,simulated
+2026-10-01,finops-platform,dev,platform-engineering,storage,3.00,simulated
+2026-10-01,commerce,dev,commerce-team,compute,22.00,simulated
+2026-10-02,finops-platform,dev,platform-engineering,compute,16.00,simulated
+2026-10-02,commerce,dev,commerce-team,networking,4.00,simulated
+2026-10-02,unallocated,unknown,unallocated,compute,5.00,simulated
