@@ -41,6 +41,18 @@ flowchart TD
 5. The reporting processor validates records and produces currency-aware allocation summaries.
 6. Automated tests verify allocation, financial reconciliation, credit handling, currency separation, and allocation-coverage metrics.
 
+## Recruiter guide: architecture, evidence & walkthrough
+
+Explore the implementation, validation evidence, and engineering decisions:
+
+- **[Architecture and security design](docs/architecture/architecture.md)** — Azure cost-export flow, GitHub Actions OIDC, access controls, and monitoring-demo architecture.
+- **[Five-minute interview walkthrough](docs/interview-walkthrough.md)** — project narrative, key technical decisions, limitations, and sample interview answers.
+- **[Evidence index](docs/evidence/README.md)** — available screenshots and their context.
+- **[Evidence screenshots](docs/evidence/screenshots/)** — dashboard, Azure governance, and test evidence.
+- **[Automated Azure export-validation workflow](.github/workflows/azure-cost-export-validation.yml)** — scheduled and manual validation using federated Azure authentication.
+
+**Data accuracy:** The Grafana dashboard uses synthetic demonstration data, not live Azure billing records. Azure budget thresholds send notifications; they do not cap or automatically stop spending.
+
 ## Technology stack
 
 - **Cloud:** Microsoft Azure
