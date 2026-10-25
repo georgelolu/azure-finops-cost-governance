@@ -221,28 +221,39 @@ Reports group costs by currency. USD, EUR, and other currencies must not be comb
 
 ## Validation and current evidence
 
-The implementation has been tested against an actual Azure Cost Management export.
+### Automated test and workflow evidence
 
-Verified locally:
-- **165** export records processed.
-- **1** currency detected: USD.
-- **11 automated tests passed.**
-- Cost totals reconcile through normalization and reporting.
-- Tests cover resource-group mapping, export normalization, invalid input, negative adjustments, mixed currencies, and independent allocation-coverage calculations.
+- **19 automated tests passed** in the locally verified test suite.
+- **GitHub Actions: PASS** — [Azure Cost Export Validation run #40181237367](https://github.com/georgelolu/azure-finops-cost-governance/actions/runs/40181237367).
+- The successful run tested commit `4b2a174489a71e54568817b0ce51cef8af73ca04`.
+- The workflow runs the project tests, authenticates to Azure using GitHub Actions OpenID Connect (OIDC), and validates the latest matching Azure Cost Management export.
+- Export validation checks the required CSV schema, record integrity, currency fields, and export freshness. Invalid, missing, or stale exports cause validation to fail.
+- Azure access uses a federated identity and container-scoped `Storage Blob Data Reader` role; no client secret is required for the workflow's OIDC login.
+- The workflow is configured for daily execution and manual dispatch.
 
-The inspected export had approximately **96.36% project record coverage**, **14.55% environment record coverage**, and **0% team record coverage**. This demonstrates why cost allocation needs more than a single overall percentage: team ownership remains a known governance gap.
+### Azure governance evidence
 
-Detailed billing totals and raw export files are intentionally kept out of this public repository. Re-run the pipeline locally to inspect the current account's figures.
+- Azure Cost Management budget configuration and notification thresholds are documented in [`docs/evidence/azure-budget-governance.md`](docs/evidence/azure-budget-governance.md).
+- Terraform provisions the development resource group and private cost-export storage container.
+- Azure export validation and reporting are designed to avoid publishing detailed billing records or totals in this repository.
+- Budget thresholds are notifications, not spending caps. Actual alert delivery and cost-data timing must be verified separately.
+
+### Evidence and limitations
+
+- The successful workflow run is the primary evidence of automated CI validation. A green run does not, by itself, prove that budget emails were delivered or that savings were achieved.
+- The project distinguishes actual Azure billing data from synthetic test data.
+- Cost attribution gaps remain visible rather than being concealed by assumptions about resource ownership.
+- No savings percentage is claimed without a documented baseline, measurement window, calculation method, and supporting evidence.
 
 ## Roadmap
 
-- [ ] Add Azure budget thresholds and alert evidence.
+- [x] Add Azure budget thresholds and alert evidence.
 - [ ] Add cost-anomaly detection with documented evaluation criteria.
 - [ ] Add safe idle-resource discovery and dry-run recommendations.
 - [ ] Add approved, auditable nonproduction shutdown workflows.
 - [ ] Add Kubernetes allocation and rightsizing with OpenCost where appropriate.
 - [ ] Add a Grafana dashboard and cost-per-request metrics.
-- [ ] Add GitHub Actions for automated tests and quality checks.
+- [x] Add GitHub Actions for automated tests and export validation.
 - [ ] Publish redacted architecture and test evidence.
 - [ ] Measure optimization outcomes against a documented baseline before claiming savings.
 
