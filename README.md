@@ -14,6 +14,8 @@ This project establishes a repeatable foundation for turning Azure billing expor
 
 ## Architecture
 
+See the [detailed architecture documentation](docs/architecture/architecture.md) for the cost-governance flow, GitHub OIDC identity, security controls, and the separate synthetic Grafana observability demo.
+
 ```mermaid
 flowchart TD
     A[Azure Cost Management] -->|Actual cost export| B[Private Azure Blob Storage]
