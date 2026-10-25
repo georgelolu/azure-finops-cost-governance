@@ -1,0 +1,61 @@
+services:
+  finops-exporter:
+    image: python:3.14-slim
+    container_name: finops-demo-exporter
+    restart: unless-stopped
+    working_dir: /app
+    command: ["python", "/app/exporter.py"]
+    environment:
+      PORT: "9108"
+      FINOPS_DATA_FILE: /app/demo/costs.csv
+    volumes:
+      - ./exporter.py:/app/exporter.py:ro
+      - ./demo:/app/demo:ro
+    expose:
+      - "9108"
+    networks:
+      - finops-monitoring
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: finops-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+    ports:
+      - "127.0.0.1:9091:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      - finops-exporter
+    networks:
+      - finops-monitoring
+
+  grafana:
+    image: grafana/grafana:12.2.0
+    container_name: finops-grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: finops-local-change-me
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    networks:
+      - finops-monitoring
+
+networks:
+  finops-monitoring:
+
+volumes:
+  prometheus-data:
+  grafana-data:

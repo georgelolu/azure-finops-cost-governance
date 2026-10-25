@@ -50,7 +50,7 @@ flowchart TD
 - **Testing:** Pytest
 - **Source control and delivery foundation:** Git and GitHub
 
-Grafana dashboards, OpenCost, and automated remediation remain roadmap items unless separately implemented and evidenced. Cost-anomaly detection is implemented and unit-tested; its synthetic spike demonstration passed, but validation against real Azure spending patterns remains future work.
+A local Grafana dashboard is implemented using Prometheus and a dedicated synthetic-cost exporter. It demonstrates cost by project, service, and day, alongside a synthetic anomaly indicator. It is not connected to actual Azure billing records. OpenCost and automated remediation remain roadmap items. Cost-anomaly detection is implemented and unit-tested; validation against real Azure spending patterns remains future work.
 
 ## Cost-anomaly detection
 
@@ -267,7 +267,8 @@ Reports group costs by currency. USD, EUR, and other currencies must not be comb
 - [ ] Add safe idle-resource discovery and dry-run recommendations.
 - [ ] Add approved, auditable nonproduction shutdown workflows.
 - [ ] Add Kubernetes allocation and rightsizing with OpenCost where appropriate.
-- [ ] Add a Grafana dashboard and cost-per-request metrics.
+- [x] Add a local Grafana dashboard with Prometheus and synthetic cost metrics.
+- [ ] Add cost-per-request metrics.
 - [x] Add GitHub Actions for automated tests and export validation.
 - [ ] Publish redacted architecture and test evidence.
 - [ ] Measure optimization outcomes against a documented baseline before claiming savings.

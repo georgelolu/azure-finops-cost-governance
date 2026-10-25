@@ -1,0 +1,85 @@
+{
+  "uid": "azure-finops-demo",
+  "title": "Synthetic FinOps Demo — Not Azure Billing Data",
+  "tags": ["finops", "azure", "demo", "synthetic"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "text",
+      "title": "Important: Synthetic demonstration only",
+      "gridPos": {"h": 4, "w": 24, "x": 0, "y": 0},
+      "options": {
+        "mode": "markdown",
+        "content": "This dashboard uses a simulated seven-day CSV dataset, not actual Azure billing data. The $10 value is a demonstration budget reference, not a spending cap. Sample-window spend is not monthly-to-date Azure spend."
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Sample-window cost (synthetic USD)",
+      "description": "Total from the synthetic demo CSV only.",
+      "gridPos": {"h": 5, "w": 8, "x": 0, "y": 4},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_total_cost_usd", "refId": "A", "instant": true}],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "values": false}, "colorMode": "value", "graphMode": "area", "orientation": "auto"}
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Budget reference (USD)",
+      "description": "Demo reference only; not an enforced spending limit.",
+      "gridPos": {"h": 5, "w": 8, "x": 8, "y": 4},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_monthly_budget_usd", "refId": "A", "instant": true}],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "values": false}, "colorMode": "value", "graphMode": "none", "orientation": "auto"}
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Synthetic anomalies detected",
+      "description": "Spike count calculated from the demo dataset.",
+      "gridPos": {"h": 5, "w": 8, "x": 16, "y": 4},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_cost_anomalies_total", "refId": "A", "instant": true}],
+      "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "values": false}, "colorMode": "value", "graphMode": "none", "orientation": "auto"}
+    },
+    {
+      "id": 5,
+      "type": "barchart",
+      "title": "Cost by project (synthetic USD)",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 9},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_project_cost_usd", "legendFormat": "{{project}}", "refId": "A", "instant": true, "format": "table"}],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2}, "overrides": []},
+      "options": {"orientation": "horizontal", "showValue": "always", "stacking": "none", "legend": {"showLegend": false}}
+    },
+    {
+      "id": 6,
+      "type": "barchart",
+      "title": "Cost by service (synthetic USD)",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 9},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_service_cost_usd", "legendFormat": "{{service}}", "refId": "A", "instant": true, "format": "table"}],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2}, "overrides": []},
+      "options": {"orientation": "horizontal", "showValue": "always", "stacking": "none", "legend": {"showLegend": false}}
+    },
+    {
+      "id": 7,
+      "type": "barchart",
+      "title": "Daily cost by sample date (synthetic USD)",
+      "description": "Bars represent dates in the demo CSV, not live billing history.",
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 17},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [{"expr": "finops_demo_daily_cost_usd", "legendFormat": "{{date}}", "refId": "A", "instant": true, "format": "table"}],
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2}, "overrides": []},
+      "options": {"orientation": "vertical", "showValue": "always", "stacking": "none", "legend": {"showLegend": false}}
+    }
+  ]
+}
