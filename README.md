@@ -50,7 +50,20 @@ flowchart TD
 - **Testing:** Pytest
 - **Source control and delivery foundation:** Git and GitHub
 
-Grafana dashboards, OpenCost, anomaly detection, budgets, and automated remediation are roadmap items unless separately implemented and evidenced.
+Grafana dashboards, OpenCost, and automated remediation remain roadmap items unless separately implemented and evidenced. Cost-anomaly detection is implemented and unit-tested; its synthetic spike demonstration passed, but validation against real Azure spending patterns remains future work.
+
+## Cost-anomaly detection
+
+The project includes a configurable daily cost-anomaly detector in `src/finops/detect_cost_anomalies.py`.
+
+- Uses a rolling median baseline and configurable detection thresholds.
+- Keeps data sources and currencies separate.
+- Requires sufficient history before evaluating a spending spike.
+- Does not flag negative cost adjustments as spending spikes.
+- Produces a CSV anomaly report and JSON execution summary.
+- Includes automated tests for spikes, credits, insufficient history, source/currency separation, invalid input, and summary privacy.
+
+A synthetic demonstration successfully detected a 4x spike. This validates the demonstration logic, not production accuracy against actual Azure spending or realized cost savings.
 
 ## Implemented capabilities
 
@@ -250,7 +263,7 @@ Reports group costs by currency. USD, EUR, and other currencies must not be comb
 ## Roadmap
 
 - [x] Add Azure budget thresholds and alert evidence.
-- [ ] Add cost-anomaly detection with documented evaluation criteria.
+- [x] Implement and unit-test cost-anomaly detection; validate with a synthetic spike demonstration.
 - [ ] Add safe idle-resource discovery and dry-run recommendations.
 - [ ] Add approved, auditable nonproduction shutdown workflows.
 - [ ] Add Kubernetes allocation and rightsizing with OpenCost where appropriate.
