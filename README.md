@@ -1,5 +1,7 @@
 # Azure FinOps & Automated Cost Governance
 
+[![Azure Cost Export Validation](https://github.com/georgelolu/azure-finops-cost-governance/actions/workflows/azure-cost-export-validation.yml/badge.svg?branch=main)](https://github.com/georgelolu/azure-finops-cost-governance/actions/workflows/azure-cost-export-validation.yml)
+
 A portfolio project demonstrating Azure cloud financial operations (FinOps), cost allocation, billing-data normalization, financial reporting, infrastructure as code, and security-conscious governance.
 
 **Current focus:** Azure Cost Management actual-cost exports, private Azure Blob Storage, Terraform-managed infrastructure, and Python-based cost allocation and reporting.
